@@ -25,6 +25,10 @@ namespace JosephusSolver
                     int counter = 0;
                     foreach (bool tmpObject in objects)
                     {
+                        if (alive > 1)
+                        {
+                            break;
+                        }
                         if (!tmpObject)
                         {
                             alive++;
