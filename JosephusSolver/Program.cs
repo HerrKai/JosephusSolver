@@ -10,6 +10,7 @@ namespace JosephusSolver
     {
         static void Main(string[] args)
         {
+        start:
             bool correctInput = false;
             int objectCount = -1;
             while (!correctInput)
@@ -36,7 +37,18 @@ namespace JosephusSolver
                     Console.ForegroundColor = ConsoleColor.Gray;
                 }
             }
-            bool[] objects = new bool[objectCount];
+            bool[] objects;
+            try
+            {
+                objects = new bool[objectCount];
+            }
+            catch
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("The number is too large");
+                Console.ForegroundColor = ConsoleColor.Gray;
+                goto start;
+            }
             bool isSolved = false;
             int index = 0;
             bool killNext = false;
