@@ -10,7 +10,23 @@ namespace JosephusSolver
     {
         static void Main(string[] args)
         {
-            const int objectCount = 10;
+            bool correctInput = false;
+            int objectCount = -1;
+            while (!correctInput)
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write("Number of objects: ");
+                try
+                {
+                    objectCount = Convert.ToInt32(Console.ReadLine());
+                    correctInput = true;
+                }
+                catch
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Your input could not be converted into a number");
+                }
+            }
             bool[] objects = new bool[objectCount];
             bool isSolved = false;
             int index = 0;
