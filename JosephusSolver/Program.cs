@@ -50,10 +50,36 @@ namespace JosephusSolver
                 Console.ForegroundColor = ConsoleColor.Gray;
                 goto start;
             }
+            correctInput = false;
+            bool showSteps = false;
+            while (!correctInput)
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write("Do you want to see ALL steps [SLOWER](y/n): ");
+                Console.ForegroundColor = ConsoleColor.White;
+                ConsoleKey pressedKey = Console.ReadKey().Key;
+                Console.WriteLine();
+                if (pressedKey == ConsoleKey.Y || pressedKey == ConsoleKey.N)
+                {
+                    if (pressedKey == ConsoleKey.Y)
+                    {
+                        showSteps = true;
+                    }
+                    correctInput = true;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Please press y (Y) or n (N)");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
+            Console.Clear();
             bool isSolved = false;
             int index = 0;
             bool killNext = false;
             int survivor = -1;
+            int killerIndex = 0;
             DateTime startingTime = DateTime.Now;
             while (!isSolved)
             {
@@ -85,18 +111,32 @@ namespace JosephusSolver
                     objects[index] = true;
                     killNext = false;
                     index++;
+                    if (showSteps)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write(killerIndex + 1);
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.Write(" removed ");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(index);
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                    }
                 }
                 else
                 {
                     if (!objects[index])
                     {
                         killNext = true;
+                        killerIndex = index;
                     }
                     index++;
                 }
             }
             DateTime endingTime = DateTime.Now;
             TimeSpan duration = endingTime - startingTime;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("\nPress any key to continue");
+            Console.ReadKey();
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.Write("Number of objects:\t");
