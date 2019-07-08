@@ -14,17 +14,26 @@ namespace JosephusSolver
             int objectCount = -1;
             while (!correctInput)
             {
-                Console.ForegroundColor = ConsoleColor.Gray;
                 Console.Write("Number of objects: ");
                 try
                 {
                     objectCount = Convert.ToInt32(Console.ReadLine());
-                    correctInput = true;
+                    if (objectCount > 0)
+                    {
+                        correctInput = true;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("The number must be larger then zero");
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                    }
                 }
                 catch
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Your input could not be converted into a number");
+                    Console.ForegroundColor = ConsoleColor.Gray;
                 }
             }
             bool[] objects = new bool[objectCount];
@@ -32,6 +41,7 @@ namespace JosephusSolver
             int index = 0;
             bool killNext = false;
             int survivor = -1;
+            DateTime startingTime = DateTime.Now;
             while (!isSolved)
             {
                 if (index >= objectCount)
@@ -72,7 +82,12 @@ namespace JosephusSolver
                     index++;
                 }
             }
-            Console.WriteLine(survivor + 1);
+            DateTime endingTime = DateTime.Now;
+            TimeSpan duration = endingTime - startingTime;
+            Console.Clear();
+            Console.WriteLine("Input:\t\t\t" + objectCount);
+            Console.WriteLine("Output:\t\t\t" + (survivor + 1));
+            Console.WriteLine("Seconds elapsed:\t" + duration.TotalSeconds);
             Console.ReadKey();
         }
     }
