@@ -11,10 +11,12 @@ namespace JosephusSolver
         static void Main(string[] args)
         {
         start:
+            Console.Clear();
             bool correctInput = false;
             int objectCount = -1;
             while (!correctInput)
             {
+                Console.ForegroundColor = ConsoleColor.Gray;
                 Console.Write("Number of objects: ");
                 Console.ForegroundColor = ConsoleColor.White;
                 try
@@ -105,6 +107,30 @@ namespace JosephusSolver
                     }
                 }
             }
+            correctInput = false;
+            bool doRestart = false;
+            while (!correctInput)
+            {
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write("Restart program if finished? (y/n): ");
+                Console.ForegroundColor = ConsoleColor.White;
+                ConsoleKey pressedKey = Console.ReadKey().Key;
+                Console.WriteLine();
+                if (pressedKey == ConsoleKey.Y || pressedKey == ConsoleKey.N)
+                {
+                    if (pressedKey == ConsoleKey.Y)
+                    {
+                        doRestart = true;
+                    }
+                    correctInput = true;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Please press y (Y) or n (N)");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
             Console.Clear();
             bool isSolved = false;
             int index = 0;
@@ -151,7 +177,20 @@ namespace JosephusSolver
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(index);
                         Console.ForegroundColor = ConsoleColor.Gray;
-                        System.Threading.Thread.Sleep(stepDelay * 1000);
+                        try
+                        {
+                            System.Threading.Thread.Sleep(stepDelay * 1000);
+                        }
+                        catch
+                        {
+                            Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("The delay you set caused the program to crash");
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write("\nPress any key to restart this application");
+                            Console.ReadKey();
+                            goto start;
+                        }
                     }
                 }
                 else
@@ -186,8 +225,19 @@ namespace JosephusSolver
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(duration.TotalSeconds);
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("\nPress any key to exit this application");
+            if (doRestart)
+            {
+                Console.Write("\nPress any key to restart");
+            }
+            else
+            {
+                Console.Write("\nPress any key to exit this application");
+            }
             Console.ReadKey();
+            if (doRestart)
+            {
+                goto start;
+            }
         }
     }
 }
