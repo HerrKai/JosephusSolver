@@ -16,6 +16,7 @@ namespace JosephusSolver
             while (!correctInput)
             {
                 Console.Write("Number of objects: ");
+                Console.ForegroundColor = ConsoleColor.White;
                 try
                 {
                     objectCount = Convert.ToInt32(Console.ReadLine());
@@ -97,9 +98,20 @@ namespace JosephusSolver
             DateTime endingTime = DateTime.Now;
             TimeSpan duration = endingTime - startingTime;
             Console.Clear();
-            Console.WriteLine("Input:\t\t\t" + objectCount);
-            Console.WriteLine("Output:\t\t\t" + (survivor + 1));
-            Console.WriteLine("Seconds elapsed:\t" + duration.TotalSeconds);
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("Number of objects:\t");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine(objectCount);
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("Last object:\t\t");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(survivor + 1);
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("Seconds elapsed:\t");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(duration.TotalSeconds);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("\nPress any key to exit this application");
             Console.ReadKey();
         }
     }
