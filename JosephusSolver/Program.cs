@@ -11,6 +11,8 @@ namespace JosephusSolver
         static void Main(string[] args)
         {
         start:
+            #region User Inputs
+            #region Number of objects
             Console.Clear();
             bool correctInput = false;
             int objectCount = -1;
@@ -52,6 +54,8 @@ namespace JosephusSolver
                 Console.ForegroundColor = ConsoleColor.Gray;
                 goto start;
             }
+            #endregion
+            #region showSteps
             correctInput = false;
             bool showSteps = false;
             while (!correctInput)
@@ -76,6 +80,7 @@ namespace JosephusSolver
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
+            #region showSteps Delay
             int stepDelay = -1;
             if (showSteps)
             {
@@ -107,6 +112,9 @@ namespace JosephusSolver
                     }
                 }
             }
+            #endregion
+            #endregion
+            #region doRestart
             correctInput = false;
             bool doRestart = false;
             while (!correctInput)
@@ -131,15 +139,21 @@ namespace JosephusSolver
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
+            #endregion
             Console.Clear();
+            #endregion
+            #region Main Algorithm
+            #region setup
             bool isSolved = false;
             int index = 0;
             bool killNext = false;
             int survivor = -1;
             int killerIndex = 0;
             DateTime startingTime = DateTime.Now;
+            #endregion
             while (!isSolved)
             {
+                #region isSolved
                 if (index >= objectCount)
                 {
                     index = 0;
@@ -163,6 +177,8 @@ namespace JosephusSolver
                         isSolved = true;
                     }
                 }
+                #endregion
+                #region Kill logic
                 if (killNext && !objects[index])
                 {
                     objects[index] = true;
@@ -202,7 +218,10 @@ namespace JosephusSolver
                     }
                     index++;
                 }
+                #endregion
             }
+            #endregion
+            #region Output
             DateTime endingTime = DateTime.Now;
             TimeSpan duration = endingTime - startingTime;
             if (showSteps)
@@ -238,6 +257,7 @@ namespace JosephusSolver
             {
                 goto start;
             }
+            #endregion
         }
     }
 }
