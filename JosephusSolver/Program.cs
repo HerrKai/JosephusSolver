@@ -74,6 +74,37 @@ namespace JosephusSolver
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
+            int stepDelay = -1;
+            if (showSteps)
+            {
+                correctInput = false;
+                while (!correctInput)
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write("Extra delay between operations (in seconds): ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    try
+                    {
+                        stepDelay = Convert.ToInt32(Console.ReadLine());
+                        if (objectCount > 0)
+                        {
+                            correctInput = true;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("The number must be larger then zero");
+                            Console.ForegroundColor = ConsoleColor.Gray;
+                        }
+                    }
+                    catch
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Your input could not be converted into a number");
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                    }
+                }
+            }
             Console.Clear();
             bool isSolved = false;
             int index = 0;
@@ -120,6 +151,7 @@ namespace JosephusSolver
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(index);
                         Console.ForegroundColor = ConsoleColor.Gray;
+                        System.Threading.Thread.Sleep(stepDelay * 1000);
                     }
                 }
                 else
@@ -134,9 +166,12 @@ namespace JosephusSolver
             }
             DateTime endingTime = DateTime.Now;
             TimeSpan duration = endingTime - startingTime;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("\nPress any key to continue");
-            Console.ReadKey();
+            if (showSteps)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("\nPress any key to continue");
+                Console.ReadKey();
+            }
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.Write("Number of objects:\t");
