@@ -151,6 +151,7 @@ namespace JosephusSolver
             int killerIndex = 0;
             DateTime startingTime = DateTime.Now;
             #endregion
+            Console.WriteLine("Calculating...");
             while (!isSolved)
             {
                 #region isSolved
@@ -220,6 +221,7 @@ namespace JosephusSolver
                 }
                 #endregion
             }
+            Console.Clear();
             #endregion
             #region Output
             DateTime endingTime = DateTime.Now;
